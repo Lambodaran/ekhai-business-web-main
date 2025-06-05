@@ -7,27 +7,27 @@ const CSREventPlanners = () => {
     {
       title: 'Educational & Health Awareness Camps',
       description: 'Comprehensive programs to educate communities about health and wellness',
-      icon: <Users className="w-8 h-8 text-blue-600" />
+      icon: <Users className="w-8 h-8 text-purple-600" />
     },
     {
       title: 'Environmental Drives',
       description: 'Environmental conservation initiatives and sustainability programs',
-      icon: <Leaf className="w-8 h-8 text-blue-600" />
+      icon: <Leaf className="w-8 h-8 text-purple-600" />
     },
     {
       title: 'Women Empowerment Programs',
       description: 'Programs focused on empowering women and promoting gender equality',
-      icon: <Heart className="w-8 h-8 text-blue-600" />
+      icon: <Heart className="w-8 h-8 text-purple-600" />
     },
     {
       title: 'Youth Skills Development',
       description: 'Skill development programs for youth to enhance employability',
-      icon: <Briefcase className="w-8 h-8 text-blue-600" />
+      icon: <Briefcase className="w-8 h-8 text-purple-600" />
     },
     {
       title: 'NGO & Corporate CSR Partnerships',
       description: 'Strategic partnerships between NGOs and corporations for social impact',
-      icon: <Globe className="w-8 h-8 text-blue-600" />
+      icon: <Globe className="w-8 h-8 text-purple-600" />
     }
   ];
 
@@ -36,37 +36,37 @@ const CSREventPlanners = () => {
       number: '01',
       title: 'Community Support and License to Operate',
       description: 'CSR initiatives address community needs, earning goodwill and securing the "license to operate" in local areas.',
-      icon: <Users className="w-8 h-8 text-blue-600" />
+      icon: <Users className="w-8 h-8 text-purple-600" />
     },
     {
       number: '02',
       title: 'Employee Attraction and Retention',
       description: 'Strong CSR commitments attract and retain talent, boosting morale, job satisfaction, and loyalty.',
-      icon: <Heart className="w-8 h-8 text-blue-600" />
+      icon: <Heart className="w-8 h-8 text-purple-600" />
     },
     {
       number: '03',
       title: 'Innovative Supply Chain Integration',
       description: 'CSR integrates local communities into the supply chain, fostering sustainable relationships and ensuring reliable sourcing.',
-      icon: <Briefcase className="w-8 h-8 text-blue-600" />
+      icon: <Briefcase className="w-8 h-8 text-purple-600" />
     },
     {
       number: '04',
       title: 'Environmental Sustainability',
       description: 'Implementing practices to reduce carbon footprint, conserve resources, promote renewable energy, and minimize pollution and waste.',
-      icon: <Leaf className="w-8 h-8 text-blue-600" />
+      icon: <Leaf className="w-8 h-8 text-purple-600" />
     },
     {
       number: '05',
       title: 'Ethical Labor Practices',
       description: 'Ensuring fair and safe working conditions, adhering to labor laws, and promoting diversity, equality, and inclusion.',
-      icon: <Shield className="w-8 h-8 text-blue-600" />
+      icon: <Shield className="w-8 h-8 text-purple-600" />
     },
     {
       number: '06',
       title: 'Community Engagement',
       description: 'Supporting local communities through initiatives such as donations, volunteering, education programs, and infrastructure development.',
-      icon: <Globe className="w-8 h-8 text-blue-600" />
+      icon: <Globe className="w-8 h-8 text-purple-600" />
     }
   ];
 
@@ -91,7 +91,7 @@ const CSREventPlanners = () => {
     'Community Clean-up Events'
   ];
 
-  // Animation variants for sections
+  // Animation variants for sections (unchanged)
   const heroVariants = {
     hidden: { opacity: 0, y: 50 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: 'easeOut' } }
@@ -130,10 +130,10 @@ const CSREventPlanners = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-white">
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-white">
       {/* Hero Section */}
       <motion.section
-        className="bg-gradient-to-r from-blue-900 to-blue-700 text-white py-20"
+        className="bg-gradient-to-r from-purple-900 to-purple-700 text-white py-20"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.3 }}
@@ -144,7 +144,7 @@ const CSREventPlanners = () => {
             <h1 className="text-5xl font-bold mb-6">
               CSR Event Planners
             </h1>
-            <p className="text-xl mb-8 text-blue-100">
+            <p className="text-xl mb-8 text-purple-100">
               Creating meaningful corporate social responsibility initiatives that drive positive change in communities
             </p>
           </div>
@@ -213,7 +213,7 @@ const CSREventPlanners = () => {
                   variants={advantageCardVariants}
                 >
                   <div className="flex items-start mb-4">
-                    <span className="text-3xl font-bold text-blue-600 mr-4">
+                    <span className="text-3xl font-bold text-purple-600 mr-4">
                       {advantage.number}
                     </span>
                     <div className="flex-1">
@@ -249,7 +249,7 @@ const CSREventPlanners = () => {
               {programs.map((program, index) => (
                 <motion.div
                   key={index}
-                  className="bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-lg p-4 text-center hover:from-blue-600 hover:to-blue-700 transition-all duration-300 transform hover:scale-105"
+                  className="bg-gradient-to-br from-purple-500 to-purple-600 text-white rounded-lg p-4 text-center hover:from-purple-600 hover:to-purple-700 transition-all duration-300 transform hover:scale-105"
                   custom={index}
                   initial="hidden"
                   whileInView="visible"
@@ -266,7 +266,7 @@ const CSREventPlanners = () => {
 
       {/* Call to Action */}
       <motion.section
-        className="py-16 bg-gradient-to-r from-blue-600 to-blue-800 text-white"
+        className="py-16 bg-gradient-to-r from-purple-600 to-purple-800 text-white"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.3 }}
@@ -277,12 +277,12 @@ const CSREventPlanners = () => {
             <h2 className="text-3xl font-bold mb-6">
               Ready to Make a Difference?
             </h2>
-            <p className="text-xl mb-8 text-blue-100">
+            <p className="text-xl mb-8 text-purple-100">
               Partner with us to create impactful CSR initiatives that benefit your business and community
             </p>
             <Link
               to="/contact"
-              className="inline-block bg-white text-blue-600 font-semibold px-8 py-3 rounded-lg hover:bg-blue-50 transition-colors duration-300"
+              className="inline-block bg-white text-purple-600 font-semibold px-8 py-3 rounded-lg hover:bg-purple-50 transition-colors duration-300"
             >
               Get Started Today
             </Link>

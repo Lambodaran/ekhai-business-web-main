@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo } from 'react';
 import { Menu, X, ChevronDown } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion'; // Added Framer Motion
+import { motion, AnimatePresence } from 'framer-motion';
 import Logo from '../assets/logo.png';
 
 const Header = () => {
@@ -22,11 +22,8 @@ const Header = () => {
     []
   );
 
-   const getTextColor = () => {
-    // Use white text for menu items when mobile menu is open for better contrast
+  const getTextColor = () => {
     if (isMenuOpen) return 'text-white';
-    
-    // Regular conditions for desktop/non-mobile
     if (isScrolled) return 'text-white';
     if (location.pathname === '/') return 'text-white';
     return 'text-gray-900';
@@ -59,7 +56,6 @@ const Header = () => {
     }
   };
 
-  // Animation variants
   const headerVariants = {
     hidden: { y: -100, opacity: 0 },
     visible: { 
@@ -121,7 +117,7 @@ const Header = () => {
   };
 
   return (
-       <motion.header
+    <motion.header
       initial="hidden"
       animate="visible"
       variants={headerVariants}
@@ -129,7 +125,6 @@ const Header = () => {
         isScrolled ? 'bg-gray-900/80 border-b border-gray-700/50' : 'bg-transparent border-b border-gray-700/30'
       }`}
     >
-      
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           <motion.div
@@ -145,6 +140,7 @@ const Header = () => {
                 src={Logo} 
                 alt="Ekhai Business Solutions Logo" 
                 className="h-8 w-auto" 
+                style={{ boxShadow: '0 0 10px 2px rgba(128, 0, 128, 0.8)' }}
                 loading="eager"
                 whileHover={{ scale: 1.05 }}
                 transition={{ type: "spring", stiffness: 400, damping: 10 }}
@@ -152,7 +148,6 @@ const Header = () => {
             </Link>
           </motion.div>
 
-          {/* Mobile Menu Button */}
           <motion.button
             custom={1}
             variants={navItemVariants}
@@ -169,7 +164,6 @@ const Header = () => {
             )}
           </motion.button>
 
-          {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8" role="navigation">
             <motion.div custom={1} variants={navItemVariants}>
               <Link
@@ -182,7 +176,6 @@ const Header = () => {
               </Link>
             </motion.div>
 
-            {/* Services Dropdown */}
             <motion.div custom={2} variants={navItemVariants} className="relative group">
               <motion.button
                 className={`${getTextColor()} hover:text-blue-400 transition-colors duration-300 font-medium flex items-center gap-1 focus:outline-none focus:ring-2 focus:ring-blue-400 rounded`}
@@ -253,7 +246,6 @@ const Header = () => {
           </nav>
         </div>
 
-        {/* Mobile Navigation */}
         <AnimatePresence>
           {isMenuOpen && (
             <motion.div
@@ -280,7 +272,6 @@ const Header = () => {
                     </Link>
                   </motion.div>
 
-                  {/* Mobile Services */}
                   <motion.div
                     variants={{
                       hidden: { x: -20, opacity: 0 },

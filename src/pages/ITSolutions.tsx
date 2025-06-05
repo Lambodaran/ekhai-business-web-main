@@ -7,32 +7,32 @@ const ITSolutions = () => {
     {
       title: 'Artificial Intelligence (AI)',
       description: 'Advanced AI solutions for automation, machine learning, and intelligent data processing.',
-      icon: <Brain className="w-8 h-8 text-blue-600" />
+      icon: <Brain className="w-8 h-8 text-purple-600" />
     },
     {
       title: 'Geospatial Services (GIS & Mapping)',
       description: 'Geographic information systems and mapping solutions for spatial data analysis.',
-      icon: <Map className="w-8 h-8 text-blue-600" />
+      icon: <Map className="w-8 h-8 text-purple-600" />
     },
     {
       title: 'Multimedia & E-learning Development',
       description: 'Interactive multimedia content and comprehensive e-learning platform development.',
-      icon: <Video className="w-8 h-8 text-blue-600" />
+      icon: <Video className="w-8 h-8 text-purple-600" />
     },
     {
       title: 'Business Process Management (BPM)',
       description: 'Streamline and optimize business processes for enhanced efficiency and productivity.',
-      icon: <Settings className="w-8 h-8 text-blue-600" />
+      icon: <Settings className="w-8 h-8 text-purple-600" />
     },
     {
       title: 'Data Entry & Processing',
       description: 'Accurate and efficient data entry, processing, and management services.',
-      icon: <Database className="w-8 h-8 text-blue-600" />
+      icon: <Database className="w-8 h-8 text-purple-600" />
     },
     {
       title: 'Genealogy & Historical Archives',
       description: 'Digital preservation and management of genealogical and historical records.',
-      icon: <FileText className="w-8 h-8 text-blue-600" />
+      icon: <FileText className="w-8 h-8 text-purple-600" />
     }
   ];
 
@@ -66,7 +66,7 @@ const ITSolutions = () => {
     }
   ];
 
-  // Animation variants for sections
+  // Animation variants for sections (unchanged)
   const heroVariants = {
     hidden: { opacity: 0, y: 50 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: 'easeOut' } }
@@ -105,10 +105,10 @@ const ITSolutions = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-white">
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-white">
       {/* Hero Section */}
       <motion.section
-        className="bg-gradient-to-r from-blue-900 to-blue-700 text-white py-20"
+        className="bg-gradient-to-r from-purple-900 to-purple-700 text-white py-20"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.3 }}
@@ -119,10 +119,10 @@ const ITSolutions = () => {
             <h1 className="text-5xl font-bold mb-6">
               IT Solutions
             </h1>
-            <p className="text-xl mb-8 text-blue-100">
+            <p className="text-xl mb-8 text-purple-100">
               Empowering Your Business with Innovative Technology Solutions
             </p>
-            <div className="flex items-center justify-center gap-2 text-blue-200">
+            <div className="flex items-center justify-center gap-2 text-purple-200">
               <Cpu className="w-6 h-6" />
               <span className="text-lg">Advanced Technology • Expert Solutions • Future-Ready</span>
             </div>
@@ -192,7 +192,7 @@ const ITSolutions = () => {
                 >
                   <div className="flex items-center justify-between">
                     <h3 className="text-lg font-semibold text-gray-800">{service}</h3>
-                    <ChevronRight className="w-5 h-5 text-blue-600" />
+                    <ChevronRight className="w-5 h-5 text-purple-600" />
                   </div>
                 </motion.div>
               ))}
@@ -224,8 +224,8 @@ const ITSolutions = () => {
                   viewport={{ once: true, amount: 0.3 }}
                   variants={featureCardVariants}
                 >
-                  <div className="bg-blue-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                    <Cloud className="w-8 h-8 text-blue-600" />
+                  <div className="bg-purple-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-6">
+                    <Cloud className="w-8 h-8 text-purple-600" />
                   </div>
                   <h3 className="text-xl font-semibold text-gray-800 mb-3">
                     {feature.title}
@@ -242,7 +242,7 @@ const ITSolutions = () => {
 
       {/* Call to Action */}
       <motion.section
-        className="py-16 bg-gradient-to-r from-blue-600 to-blue-800 text-white"
+        className="py-16 bg-gradient-to-r from-purple-600 to-purple-800 text-white"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.3 }}
@@ -253,18 +253,18 @@ const ITSolutions = () => {
             <h2 className="text-3xl font-bold mb-6">
               Ready to Transform Your Business?
             </h2>
-            <p className="text-xl mb-8 text-blue-100">
-              Let's discuss how our IT solutions can drive your business forward
-            </p>
-            <Link
-              to="/contact"
-              className="inline-block bg-white text-blue-600 font-semibold px-8 py-3 rounded-lg hover:bg-blue-50 transition-colors duration-300"
-            >
- Get Started Today
-            </Link>
-          </div>
-        </div>
-      </motion.section>
+      <p className="text-xl mb-8 text-purple-100">
+                    Let's discuss how our IT solutions can drive your business forward
+                  </p>
+                  <Link
+                    to="/contact"
+                    className="inline-block bg-white text-purple-600 font-semibold px-8 py-3 rounded-lg hover:bg-purple-50 transition-colors duration-300"
+                  >
+                    Get Started Today
+                  </Link>
+                </div>
+              </div>
+            </motion.section>
     </div>
   );
 };

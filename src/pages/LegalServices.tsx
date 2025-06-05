@@ -153,7 +153,7 @@ const LegalServices = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-white">
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-white">
       {/* Hero Section */}
       <motion.section
         className="py-20 px-4"
@@ -163,7 +163,7 @@ const LegalServices = () => {
       >
         <div className="container mx-auto text-center">
           <div className="flex justify-center mb-6">
-            <Scale className="w-16 h-16 text-blue-600" />
+            <Scale className="w-16 h-16 text-purple-600" />
           </div>
           <h1 className="text-5xl font-bold text-gray-900 mb-6">
             EKHAI Legal Services
@@ -193,13 +193,13 @@ const LegalServices = () => {
                 whileHover={{ scale: 1.03, transition: { duration: 0.2 } }}
               >
                 <div className="flex items-center mb-4">
-                  <area.icon className="w-8 h-8 text-blue-600 mr-3" />
+                  <area.icon className="w-8 h-8 text-purple-600 mr-3" />
                   <h3 className="text-xl font-semibold text-gray-900">{area.title}</h3>
                 </div>
                 <ul className="space-y-2">
                   {area.services.map((service, serviceIndex) => (
                     <li key={serviceIndex} className="text-gray-600 text-sm flex items-start">
-                      <span className="w-2 h-2 bg-blue-600 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                      <span className="w-2 h-2 bg-purple-600 rounded-full mt-2 mr-3 flex-shrink-0"></span>
                       {service}
                     </li>
                   ))}

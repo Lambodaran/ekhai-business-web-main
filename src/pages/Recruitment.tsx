@@ -52,37 +52,37 @@ const Recruitment = () => {
     {
       title: 'Permanent Staffing',
       description: 'Long-term talent acquisition solutions for your core business needs',
-      icon: <Users className="w-8 h-8 text-blue-600" />
+      icon: <Users className="w-8 h-8 text-purple-600" />
     },
     {
       title: 'Contract Staffing',
       description: 'Flexible workforce solutions for project-based requirements',
-      icon: <FileText className="w-8 h-8 text-blue-600" />
+      icon: <FileText className="w-8 h-8 text-purple-600" />
     },
     {
       title: 'Onsite Recruitment',
       description: 'Direct recruitment services at your location for immediate needs',
-      icon: <Building className="w-8 h-8 text-blue-600" />
+      icon: <Building className="w-8 h-8 text-purple-600" />
     },
     {
       title: 'Payroll Management',
       description: 'Comprehensive payroll processing and management services',
-      icon: <FileText className="w-8 h-8 text-blue-600" />
+      icon: <FileText className="w-8 h-8 text-purple-600" />
     },
     {
       title: 'Executive Search',
       description: 'Specialized search for senior-level and executive positions',
-      icon: <Search className="w-8 h-8 text-blue-600" />
+      icon: <Search className="w-8 h-8 text-purple-600" />
     },
     {
       title: 'Recruitment Process Outsourcing (RPO)',
       description: 'Complete recruitment process management and optimization',
-      icon: <Network className="w-8 h-8 text-blue-600" />
+      icon: <Network className="w-8 h-8 text-purple-600" />
     },
     {
       title: 'Campus Recruitment',
       description: 'Direct talent acquisition from educational institutions',
-      icon: <GraduationCap className="w-8 h-8 text-blue-600" />
+      icon: <GraduationCap className="w-8 h-8 text-purple-600" />
     }
   ];
 
@@ -90,30 +90,30 @@ const Recruitment = () => {
     {
       title: 'Targeted Approach',
       description: 'We understand your specific requirements and match candidates accordingly',
-      icon: <Target className="w-8 h-8 text-blue-600" />
+      icon: <Target className="w-8 h-8 text-purple-600" />
     },
     {
       title: 'Extensive Network',
       description: 'Access to a vast pool of qualified candidates across various industries',
-      icon: <Users className="w-8 h-8 text-blue-600" />
+      icon: <Users className="w-8 h-8 text-purple-600" />
     },
     {
       title: 'Industry Expertise',
       description: 'Deep understanding of various industries and their unique requirements',
-      icon: <Building className="w-8 h-8 text-blue-600" />
+      icon: <Building className="w-8 h-8 text-purple-600" />
     },
     {
       title: 'Quality Assurance',
       description: 'Rigorous screening and assessment processes to ensure quality matches',
-      icon: <Search className="w-8 h-8 text-blue-600" />
+      icon: <Search className="w-8 h-8 text-purple-600" />
     }
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-white">
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-white">
       {/* Hero Section */}
       <motion.section
-        className="bg-gradient-to-r from-blue-900 to-blue-700 text-white py-20"
+        className="bg-gradient-to-r from-purple-900 to-purple-700 text-white py-20"
         initial="hidden"
         animate="visible"
         variants={heroVariants}
@@ -123,7 +123,7 @@ const Recruitment = () => {
             <h1 className="text-5xl font-bold mb-6">
               Recruitment Services
             </h1>
-            <p className="text-xl mb-8 text-blue-100">
+            <p className="text-xl mb-8 text-purple-100">
               Connecting talent with opportunity through comprehensive recruitment solutions
             </p>
           </div>
@@ -180,7 +180,7 @@ const Recruitment = () => {
                   variants={cardVariants}
                   whileHover={{ scale: 1.03, transition: { duration: 0.2 } }}
                 >
-                  <div className="bg-blue-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                  <div className="bg-purple-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
                     {feature.icon}
                   </div>
                   <h3 className="text-xl font-semibold text-gray-800 mb-3">
@@ -198,7 +198,7 @@ const Recruitment = () => {
 
       {/* Call to Action */}
       <motion.section
-        className="py-16 bg-gradient-to-r from-blue-600 to-blue-800 text-white"
+        className="py-16 bg-gradient-to-r from-purple-600 to-purple-800 text-white"
         initial="hidden"
         animate="visible"
         variants={ctaVariants}
@@ -208,7 +208,7 @@ const Recruitment = () => {
             <h2 className="text-3xl font-bold mb-6">
               Ready to Find Your Perfect Match?
             </h2>
-            <p className="text-xl mb-8 text-blue-100">
+            <p className="text-xl mb-8 text-purple-100">
               Let us help you find the right talent for your organization
             </p>
             <motion.div
@@ -218,7 +218,7 @@ const Recruitment = () => {
             >
               <Link
                 to="/contact"
-                className="inline-block bg-white text-blue-600 font-semibold px-8 py-3 rounded-lg hover:bg-blue-50 transition-colors duration-300"
+                className="inline-block bg-white text-purple-600 font-semibold px-8 py-3 rounded-lg hover:bg-purple-50 transition-colors duration-300"
               >
                 Get Started Today
               </Link>

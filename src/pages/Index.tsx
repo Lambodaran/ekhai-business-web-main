@@ -5,6 +5,8 @@ import Banner from '../components/Banner';
 import ClientsSection from '../components/ClientsSection';
 import AboutSection from '../components/AboutSection';
 import WhyChooseUsSection from '../components/WhyChooseUsSection';
+import Services from '../components/Services';
+import MissionVision from '../components/MissionVision';
 
 const Index = () => {
   return (
@@ -13,6 +15,8 @@ const Index = () => {
       <Banner />
       <ClientsSection />
       <AboutSection />
+      <Services />
+      <MissionVision />
       <WhyChooseUsSection />
       <Footer />
     </div>

@@ -7,22 +7,22 @@ const Internships = () => {
     {
       title: 'AICTE-Recognized Programs',
       description: 'Our internship programs are officially recognized by AICTE, ensuring quality and credibility.',
-      icon: <Award className="w-8 h-8 text-blue-600" />
+      icon: <Award className="w-8 h-8 text-purple-600" />
     },
     {
       title: 'Industry Exposure',
       description: 'Real-world experience across IT, Engineering, Manufacturing, and other sectors.',
-      icon: <Target className="w-8 h-8 text-blue-600" />
+      icon: <Target className="w-8 h-8 text-purple-600" />
     },
     {
       title: 'Skill Development',
       description: 'Comprehensive training programs to enhance technical and soft skills.',
-      icon: <Users className="w-8 h-8 text-blue-600" />
+      icon: <Users className="w-8 h-8 text-purple-600" />
     },
     {
       title: 'Flexible Duration',
       description: 'Programs ranging from short-term projects to semester-long internships.',
-      icon: <Clock className="w-8 h-8 text-blue-600" />
+      icon: <Clock className="w-8 h-8 text-purple-600" />
     }
   ];
 
@@ -30,22 +30,22 @@ const Internships = () => {
     {
       title: 'Hands-on Experience',
       description: 'Hands-on project experience',
-      icon: <Target className="w-8 h-8 text-blue-600" />
+      icon: <Target className="w-8 h-8 text-purple-600" />
     },
     {
       title: 'Expert Mentorship',
       description: 'Mentorship from industry experts',
-      icon: <Users className="w-8 h-8 text-blue-600" />
+      icon: <Users className="w-8 h-8 text-purple-600" />
     },
     {
       title: 'Certification',
       description: 'Certificate of completion',
-      icon: <Award className="w-8 h-8 text-blue-600" />
+      icon: <Award className="w-8 h-8 text-purple-600" />
     },
     {
       title: 'Career Opportunities',
       description: 'Potential for full-time offers',
-      icon: <GraduationCap className="w-8 h-8 text-blue-600" />
+      icon: <GraduationCap className="w-8 h-8 text-purple-600" />
     }
   ];
 
@@ -56,7 +56,7 @@ const Internships = () => {
     'Industry best practices training'
   ];
 
-  // Animation variants for sections
+  // Animation variants for sections (unchanged)
   const heroVariants = {
     hidden: { opacity: 0, y: 50 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: 'easeOut' } }
@@ -95,10 +95,10 @@ const Internships = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-white">
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-white">
       {/* Hero Section */}
       <motion.section
-        className="bg-gradient-to-r from-blue-900 to-blue-700 text-white py-20"
+        className="bg-gradient-to-r from-purple-900 to-purple-700 text-white py-20"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.3 }}
@@ -109,7 +109,7 @@ const Internships = () => {
             <h1 className="text-5xl font-bold mb-6">
               Internship Programs
             </h1>
-            <p className="text-xl mb-8 text-blue-100">
+            <p className="text-xl mb-8 text-purple-100">
               AICTE-Recognized Internship Programs for Future Professionals
             </p>
           </div>
@@ -176,7 +176,7 @@ const Internships = () => {
                   viewport={{ once: true, amount: 0.3 }}
                   variants={featureCardVariants}
                 >
-                  <div className="bg-blue-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                  <div className="bg-purple-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
                     {feature.icon}
                   </div>
                   <h3 className="text-xl font-semibold text-gray-800 mb-3">
@@ -212,7 +212,7 @@ const Internships = () => {
 
       {/* Call to Action Section */}
       <motion.section
-        className="py-16 bg-gradient-to-r from-blue-600 to-blue-800 text-white"
+        className="py-16 bg-gradient-to-r from-purple-600 to-purple-800 text-white"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.3 }}
@@ -223,12 +223,12 @@ const Internships = () => {
             <h2 className="text-3xl font-bold mb-6">
               Ready to Kickstart Your Career?
             </h2>
-            <p className="text-xl mb-8 text-blue-100">
+            <p className="text-xl mb-8 text-purple-100">
               Join our AICTE-recognized internship programs and gain valuable industry experience
             </p>
             <Link
               to="/contact"
-              className="inline-block bg-white text-blue-600 font-semibold px-8 py-3 rounded-lg hover:bg-blue-50 transition-colors duration-300"
+              className="inline-block bg-white text-purple-600 font-semibold px-8 py-3 rounded-lg hover:bg-purple-50 transition-colors duration-300"
             >
               Apply Now
             </Link>
