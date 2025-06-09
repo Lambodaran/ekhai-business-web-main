@@ -107,28 +107,31 @@ const ITSolutions = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 to-white">
       {/* Hero Section */}
-      <motion.section
-        className="bg-gradient-to-r from-purple-900 to-purple-700 text-white py-20"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.3 }}
-        variants={heroVariants}
-      >
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-5xl font-bold mb-6">
-              IT Solutions
-            </h1>
-            <p className="text-xl mb-8 text-purple-100">
-              Empowering Your Business with Innovative Technology Solutions
-            </p>
-            <div className="flex items-center justify-center gap-2 text-purple-200">
-              <Cpu className="w-6 h-6" />
-              <span className="text-lg">Advanced Technology • Expert Solutions • Future-Ready</span>
-            </div>
-          </div>
+       <motion.section
+    className="bg-gradient-to-r from-purple-900 to-purple-700 text-white py-20 bg-cover bg-center bg-no-repeat relative"
+    style={{
+      backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://media.gettyimages.com/id/155392965/photo/hand-pointing-with-pen-on-a-computer-chart-document.jpg?s=612x612&w=0&k=20&c=hqvR4yKJJHdUKI3vLRDEgTuKQXoi18i9dtfYtroLQ-s=')`
+    }}
+    initial="hidden"
+    whileInView="visible"
+    viewport={{ once: true, amount: 0.3 }}
+    variants={heroVariants}
+  >
+    <div className="container mx-auto px-4">
+      <div className="max-w-4xl mx-auto text-center relative z-10">
+        <h1 className="text-5xl font-bold mb-6">
+          IT Solutions
+        </h1>
+        <p className="text-xl mb-8 text-purple-100">
+          Empowering Your Business with Innovative Technology Solutions
+        </p>
+        <div className="flex items-center justify-center gap-2 text-purple-200">
+          <Cpu className="w-6 h-6" />
+          <span className="text-lg">Advanced Technology • Expert Solutions • Future-Ready</span>
         </div>
-      </motion.section>
+      </div>
+    </div>
+  </motion.section>
 
       {/* Main Solutions Section */}
       <motion.section

@@ -156,23 +156,26 @@ const LegalServices = () => {
     <div className="min-h-screen bg-gradient-to-br from-purple-50 to-white">
       {/* Hero Section */}
       <motion.section
-        className="py-20 px-4"
-        initial="hidden"
-        animate="visible"
-        variants={heroVariants}
-      >
-        <div className="container mx-auto text-center">
-          <div className="flex justify-center mb-6">
-            <Scale className="w-16 h-16 text-purple-600" />
-          </div>
-          <h1 className="text-5xl font-bold text-gray-900 mb-6">
-            EKHAI Legal Services
-          </h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Providing tailored legal guidance and support for your organisation's needs
-          </p>
-        </div>
-      </motion.section>
+    className="py-20 px-4 bg-gradient-to-r from-purple-900 to-purple-700 text-white bg-cover bg-center bg-no-repeat relative"
+    style={{
+      backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://st5.depositphotos.com/9999814/78515/i/450/depositphotos_785156438-stock-photo-smart-legal-advice-website-people.jpg')`
+    }}
+    initial="hidden"
+    animate="visible"
+    variants={heroVariants}
+  >
+    <div className="container mx-auto text-center relative z-10">
+      <div className="flex justify-center mb-6">
+        <Scale className="w-16 h-16 text-purple-600" />
+      </div>
+      <h1 className="text-5xl font-bold text-white mb-6">
+        EKHAI Legal Services
+      </h1>
+      <p className="text-xl text-purple-100 max-w-3xl mx-auto">
+        Providing tailored legal guidance and support for your organisation's needs
+      </p>
+    </div>
+  </motion.section>
 
       {/* Practice Areas */}
       <section className="py-16 px-4">

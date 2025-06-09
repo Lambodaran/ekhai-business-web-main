@@ -113,22 +113,25 @@ const Recruitment = () => {
     <div className="min-h-screen bg-gradient-to-br from-purple-50 to-white">
       {/* Hero Section */}
       <motion.section
-        className="bg-gradient-to-r from-purple-900 to-purple-700 text-white py-20"
-        initial="hidden"
-        animate="visible"
-        variants={heroVariants}
-      >
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-5xl font-bold mb-6">
-              Recruitment Services
-            </h1>
-            <p className="text-xl mb-8 text-purple-100">
-              Connecting talent with opportunity through comprehensive recruitment solutions
-            </p>
-          </div>
-        </div>
-      </motion.section>
+    className="bg-gradient-to-r from-purple-900 to-purple-700 text-white py-20 bg-cover bg-center bg-no-repeat relative"
+    style={{
+      backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://static.wixstatic.com/media/9fb30e_909bfc6927d14af789d2f66303779de2.jpg')`
+    }}
+    initial="hidden"
+    animate="visible"
+    variants={heroVariants}
+  >
+    <div className="container mx-auto px-4">
+      <div className="max-w-4xl mx-auto text-center relative z-10">
+        <h1 className="text-5xl font-bold mb-6">
+          Recruitment Services
+        </h1>
+        <p className="text-xl mb-8 text-purple-100">
+          Connecting talent with opportunity through comprehensive recruitment solutions
+        </p>
+      </div>
+    </div>
+  </motion.section>
 
       {/* Services Section */}
       <section className="py-16">

@@ -117,26 +117,29 @@ const Souvenir = () => {
     <div className="min-h-screen bg-gradient-to-br from-purple-50 to-white">
       {/* Hero Section */}
       <motion.section
-        className="bg-gradient-to-r from-purple-900 to-purple-700 text-white py-20"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.3 }}
-        variants={heroVariants}
-      >
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-5xl font-bold mb-6">
-              EKHAI Souvenir
-            </h1>
-            <p className="text-2xl mb-8 text-purple-100">
-              Crafting Gratitude, Delivering Smiles
-            </p>
-            <p className="text-lg text-purple-200">
-              A dedicated unit of EKHAI BUSINESS SOLUTIONS
-            </p>
-          </div>
-        </div>
-      </motion.section>
+    className="bg-gradient-to-r from-purple-900 to-purple-700 text-white py-20 bg-cover bg-center bg-no-repeat relative"
+    style={{
+      backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://greenopromo.com/wp-content/uploads/2025/04/Gadgets.jpg')`
+    }}
+    initial="hidden"
+    whileInView="visible"
+    viewport={{ once: true, amount: 0.3 }}
+    variants={heroVariants}
+  >
+    <div className="container mx-auto px-4">
+      <div className="max-w-4xl mx-auto text-center relative z-10">
+        <h1 className="text-5xl font-bold mb-6">
+          EKHAI Souvenir
+        </h1>
+        <p className="text-2xl mb-8 text-purple-100">
+          Crafting Gratitude, Delivering Smiles
+        </p>
+        <p className="text-lg text-purple-200">
+          A dedicated unit of EKHAI BUSINESS SOLUTIONS
+        </p>
+      </div>
+    </div>
+  </motion.section>
 
       {/* Introduction Section */}
       <motion.section
