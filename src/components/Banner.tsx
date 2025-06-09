@@ -91,15 +91,23 @@ const Banner = () => {
 >
   {/* Brightened background image */}
   <motion.div 
-    className="absolute inset-0 w-full h-full"
-    style={{ 
-      y: backgroundY,
-      backgroundImage: `url(${ImgBanner})`,
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-      filter: 'brightness(1.1) contrast(1.1)'
-    }}
-  />
+  className="absolute inset-0 w-full h-full"
+  style={{ 
+    y: backgroundY,
+  }}
+>
+  <video
+    className="w-full h-full object-cover"
+    autoPlay
+    loop
+    muted
+    playsInline
+    aria-hidden="true"
+  >
+    <source src="src/assets/dashboard.mp4" type="video/mp4" />
+    Your browser does not support the video tag.
+  </video>
+</motion.div>
 
   {/* Optional very light overlay (10% opacity) */}
   <div className="absolute inset-0 bg-white/10"></div>

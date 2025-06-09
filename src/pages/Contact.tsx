@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Phone, Mail, MapPin, Facebook, Twitter, Linkedin, Instagram } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -257,7 +257,7 @@ const Contact = () => {
               <h2 className="text-4xl font-bold text-center mb-12 text-gray-800">Find Us</h2>
               <div className="bg-white rounded-lg shadow-lg hover:shadow-xl transition-all duration-300">
                 <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3949.9895678!2d77.3247!3d8.2917!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b04f0d8c1a1a1a1%3A0x1a1a1a1a1a1a1a1a!2sMarthandam%2C%20Tamil%20Nadu!5e0!3m2!1sen!2sin!4v1234567890!5m2!1sen!2sin"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3949.9895678!2d77.3227!3d8.2917!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b04f0d8c1a1a1a1%3A0x1a1a1a1a1a1a1a1a!2s4%2F8%2FA7%2C%20John%20Square%2C%20Marthandam%2C%20Kanyakumari%2C%20Tamil%20Nadu%20629165%2C%20India!5e0!3m2!1sen!2sin!4v1698765432100!5m2!1sen!2sin"
                   width="100%"
                   height="400"
                   style={{ border: 0 }}

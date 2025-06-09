@@ -104,14 +104,24 @@ const Header = () => {
     hidden: { 
       height: 0,
       opacity: 0,
-      transition: { duration: 0.3 }
+      y: "-100%",
+      transition: { 
+        duration: 0.3,
+        ease: "easeInOut"
+      }
     },
     visible: { 
       height: "auto",
       opacity: 1,
+      y: 0,
       transition: { 
-        duration: 0.4,
-        ease: "easeInOut"
+        duration: 0.5,
+        type: "spring",
+        stiffness: 120,
+        damping: 15,
+        ease: "easeInOut",
+        when: "beforeChildren",
+        staggerChildren: 0.1
       }
     }
   };
@@ -253,19 +263,28 @@ const Header = () => {
               animate="visible"
               exit="hidden"
               variants={mobileMenuVariants}
-              className={`md:hidden overflow-hidden`}
+              className={`md:hidden flex justify-center items-center w-full bg-gray-900/95 backdrop-blur-md border-t border-gray-700/50 px-4`}
             >
-              <nav className="mt-4 pb-6 border-t border-gray-700/50 bg-gray-900/95 backdrop-blur-md" role="navigation">
-                <div className="flex flex-col space-y-4 pt-4">
+              <nav className="w-full py-6" role="navigation">
+                <div className="flex flex-col space-y-3">
                   <motion.div
                     variants={{
-                      hidden: { x: -20, opacity: 0 },
-                      visible: { x: 0, opacity: 1 }
+                      hidden: { x: -20, opacity: 0, scale: 0.95 },
+                      visible: { 
+                        x: 0, 
+                        opacity: 1, 
+                        scale: 1,
+                        transition: { 
+                          type: "spring",
+                          stiffness: 150,
+                          damping: 12
+                        }
+                      }
                     }}
                   >
                     <Link
                       to="/"
-                      className={`text-lg ${getTextColor()} hover:text-blue-400 transition-colors duration-300 font-medium px-3 py-2`}
+                      className={`text-lg ${getTextColor()} hover:text-blue-400 transition-colors duration-300 font-medium block px-3 py-2`}
                       onClick={() => setIsMenuOpen(false)}
                     >
                       Home
@@ -274,8 +293,17 @@ const Header = () => {
 
                   <motion.div
                     variants={{
-                      hidden: { x: -20, opacity: 0 },
-                      visible: { x: 0, opacity: 1 }
+                      hidden: { x: -20, opacity: 0, scale: 0.95 },
+                      visible: { 
+                        x: 0, 
+                        opacity: 1, 
+                        scale: 1,
+                        transition: { 
+                          type: "spring",
+                          stiffness: 150,
+                          damping: 12
+                        }
+                      }
                     }}
                   >
                     <button
@@ -293,57 +321,72 @@ const Header = () => {
                         <ChevronDown className={`w-5 h-5 ${getTextColor()}`} />
                       </motion.span>
                     </button>
-                    <AnimatePresence>
-                      {isServicesOpen && (
-                        <motion.div
-                          initial="hidden"
-                          animate="visible"
-                          exit="hidden"
-                          variants={{
-                            hidden: { height: 0, opacity: 0 },
-                            visible: { 
-                              height: "auto", 
-                              opacity: 1,
-                              transition: { staggerChildren: 0.05 }
-                            }
-                          }}
-                          className="ml-4 mt-2 space-y-2"
-                        >
-                          {services.map((service, index) => (
-                            <motion.div
-                              key={service.path}
-                              variants={{
-                                hidden: { x: -20, opacity: 0 },
-                                visible: { 
-                                  x: 0, 
-                                  opacity: 1,
-                                  transition: { delay: index * 0.05 }
-                                }
-                              }}
-                            >
-                              <Link
-                                to={service.path}
-                                className={`block text-base text-gray-200 hover:text-blue-400 transition-colors duration-300 px-3 py-2`}
-                                onClick={() => setIsMenuOpen(false)}
-                              >
-                                {service.name}
-                              </Link>
-                            </motion.div>
-                          ))}
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
+<AnimatePresence>
+  {isServicesOpen && (
+    <motion.div
+      initial="hidden"
+      animate="visible"
+      exit="hidden"
+      variants={{
+        hidden: { height: 0, opacity: 0 },
+        visible: { 
+          height: "auto", 
+          opacity: 1,
+          transition: { staggerChildren: 0.05 }
+        }
+      }}
+      className="ml-4 space-y-3"
+    >
+      {services.map((service, index) => (
+        <motion.div
+          key={service.path}
+          variants={{
+            hidden: { x: -20, opacity: 0, scale: 0.95 },
+            visible: { 
+              x: 0, 
+              opacity: 1, 
+              scale: 1,
+              transition: { 
+                type: "spring",
+                stiffness: 150,
+                damping: 12,
+                delay: index * 0.1 
+              }
+            }
+          }}
+        >
+          <Link
+            to={service.path}
+            className={`block text-base text-gray-200 hover:text-blue-400 transition-colors duration-300 px-3 py-2`}
+            onClick={() => setIsMenuOpen(false)}
+          >
+            {service.name}
+          </Link>
+        </motion.div>
+      ))}
+    </motion.div>
+  )}
+</AnimatePresence>
                   </motion.div>
 
                   <motion.div
                     variants={{
-                      hidden: { x: -20, opacity: 0 },
-                      visible: { x: 0, opacity: 1 }
+                      hidden: { x: -20, opacity: 0, scale: 0.95 },
+                      visible: { 
+                        x: 0, 
+                        opacity: 1, 
+                        scale: 1,
+                        transition: { 
+                          type: "spring",
+                          stiffness: 150,
+                          damping: 12
+                        }
+                      }
                     }}
                   >
                     <Link
                       to="/contact"
-                      className={`text-lg ${getTextColor()} hover:text-blue-400 transition-colors duration-300 font-medium px-3 py-2`}
+                      className={`text-lg ${getTextColor()} hover:text-blue-400 transition-colors duration-300 font-medium block px-3 py-2`}
                       onClick={() => setIsMenuOpen(false)}
                     >
                       Contact

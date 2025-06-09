@@ -1,20 +1,31 @@
 import { motion, useInView, useScroll, useTransform } from 'framer-motion';
-import { useRef } from 'react';
+import { useRef, useEffect, useState } from 'react';
 
 const AboutSection = () => {
   const sectionRef = useRef(null);
-  const isInView = useInView(sectionRef, { once: true, amount: 0.2, margin: '-50px' });
+  const [isMobile, setIsMobile] = useState(false);
+  const isInView = useInView(sectionRef, { once: true, amount: 0.1, margin: '-20px' });
+
+  // Detect mobile view
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768); // Mobile breakpoint (md in Tailwind)
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   // Parallax effect for stats container and individual cards
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ['start end', 'end start'],
   });
-  const statsParallaxY = useTransform(scrollYProgress, [0, 1], ['0%', '10%']);
+  const statsParallaxY = useTransform(scrollYProgress, [0, 1], ['0%', isMobile ? '4%' : '8%']);
   const cardParallaxY = (index: number) =>
-    useTransform(scrollYProgress, [0, 1], ['0%', `${5 + index * 2}%`]);
+    useTransform(scrollYProgress, [0, 1], ['0%', isMobile ? `${2 + index * 0.5}%` : `${3 + index * 1}%`]);
   const cardParallaxRotate = (index: number) =>
-    useTransform(scrollYProgress, [0, 1], [0, index % 2 === 0 ? 2 : -2]); // Slight rotation
+    useTransform(scrollYProgress, [0, 1], [0, isMobile ? 0 : index % 2 === 0 ? 1 : -1]);
 
   // Check for reduced motion preference
   const prefersReducedMotion = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -32,25 +43,28 @@ const AboutSection = () => {
     },
   };
 
-  // Heading letter-by-letter animation (unchanged as per feedback)
+  // Heading letter-by-letter animation
   const headingText = 'About Ekhai Business Solutions'.split('');
   const headingVariants = {
-    hidden: { opacity: 0, y: -20, filter: 'blur(4px)' },
+    hidden: { opacity: 0, y: -20, scale: 0.9, filter: 'blur(4px)' },
     visible: {
       opacity: 1,
       y: 0,
+      scale: 1,
       filter: 'blur(0px)',
       transition: { duration: prefersReducedMotion ? 0 : 0.6, ease: 'easeOut' },
     },
   };
   const letterVariants = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 0, y: 20, scale: 0.9 },
     visible: (i: number) => ({
       opacity: 1,
       y: 0,
+      scale: isMobile ? 1 : [0.9, 1.1, 1],
       transition: {
-        duration: prefersReducedMotion ? 0 : 0.4,
-        delay: prefersReducedMotion ? 0 : i * 0.05,
+        duration: prefersReducedMotion ? 0 : isMobile ? 0.4 : 0.6,
+        delay: prefersReducedMotion ? 0 : i * 0.03,
+        scale: { duration: prefersReducedMotion ? 0 : 0.4 },
       },
     }),
   };
@@ -65,9 +79,9 @@ const AboutSection = () => {
   const wordVariants = (index: number, wordIndex: number) => ({
     hidden: {
       opacity: 0,
-      x: index === 0 ? -20 : 0, // First paragraph words slide from left
-      y: index === 1 ? 20 : 0, // Second paragraph words slide up
-      scale: index === 2 ? 0.9 : 1, // Third paragraph words zoom in
+      x: index === 0 ? -20 : 0,
+      y: index === 1 ? 20 : 0,
+      scale: 0.9,
       filter: 'blur(4px)',
     },
     visible: {
@@ -77,63 +91,76 @@ const AboutSection = () => {
       scale: 1,
       filter: 'blur(0px)',
       transition: {
-        duration: prefersReducedMotion ? 0 : 0.5,
+        duration: prefersReducedMotion ? 0 : isMobile ? 0.4 : 0.6,
         ease: 'easeOut',
-        delay: prefersReducedMotion ? 0 : index * 0.3 + wordIndex * 0.05,
-        scale: { yoyo: prefersReducedMotion ? 0 : 1, repeat: 1, duration: 0.6 }, // Pulse effect
+        delay: prefersReducedMotion ? 0 : index * 0.3 + wordIndex * 0.04,
       },
     },
   });
 
-  // Stats container variants with bounce
+  // Stats container variants
   const statsContainerVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,
-      y: [20, -10, 0], // Bounce effect
+      y: 0,
       transition: {
-        duration: prefersReducedMotion ? 0 : 0.8,
-        ease: 'easeOut',
-        y: { duration: prefersReducedMotion ? 0 : 0.8, times: [0, 0.5, 1] },
-        staggerChildren: prefersReducedMotion ? 0 : 0.2,
-        delayChildren: prefersReducedMotion ? 0 : 0.3,
+        duration: prefersReducedMotion ? 0 : isMobile ? 0.6 : 0.8,
+        type: 'spring',
+        stiffness: isMobile ? 150 : 120,
+        damping: 15,
+        staggerChildren: prefersReducedMotion ? 0 : isMobile ? 0.15 : 0.3,
+        delayChildren: prefersReducedMotion ? 0 : isMobile ? 0.3 : 0.5,
       },
     },
   };
 
-  // Stat item variants with glow and float
+  // Stat item variants with mobile-optimized animations
   const statItemVariants = (index: number) => ({
     hidden: {
       opacity: 0,
-      rotateX: index % 2 === 0 ? 90 : 0, // Even indices flip
-      scale: index % 2 === 1 ? 0.8 : 1, // Odd indices zoom
-      filter: 'blur(4px)',
+      scale: isMobile ? 0.9 : 0.7,
+      rotateY: isMobile ? 0 : index % 2 === 0 ? 90 : -90,
+      filter: isMobile ? 'blur(4px)' : 'blur(8px)',
       boxShadow: '0 0 0 rgba(0, 0, 0, 0)',
     },
     visible: {
       opacity: 1,
-      rotateX: 0,
       scale: 1,
+      rotateY: 0,
       filter: 'blur(0px)',
-      boxShadow: [
-        '0 0 0 rgba(0, 0, 255, 0)',
-        '0 0 15px rgba(0, 0, 255, 0.3)',
-        '0 0 0 rgba(0, 0, 255, 0)',
-      ], // Glow effect
+      boxShadow: isMobile
+        ? '0 0 15px rgba(147, 51, 234, 0.3)'
+        : [
+            '0 0 0 rgba(0, 0, 0, 0)',
+            '0 0 25px rgba(147, 51, 234, 0.5)',
+            '0 0 10px rgba(147, 51, 234, 0.3)',
+          ],
       transition: {
-        duration: prefersReducedMotion ? 0 : 0.5,
+        duration: prefersReducedMotion ? 0 : isMobile ? 0.5 : 0.8,
         ease: 'easeOut',
-        delay: prefersReducedMotion ? 0 : index * 0.15,
-        boxShadow: { duration: prefersReducedMotion ? 0 : 0.8, times: [0, 0.5, 1] },
+        delay: prefersReducedMotion ? 0 : index * (isMobile ? 0.15 : 0.25),
+        boxShadow: { duration: prefersReducedMotion ? 0 : isMobile ? 0.5 : 1.2, times: [0, 0.5, 1] },
       },
     },
-    float: {
-      y: [0, -5, 0], // Floating animation after entrance
+    pulse: {
+      scale: isMobile ? [1, 1.03, 1] : [1, 1.05, 1],
+      boxShadow: isMobile
+        ? [
+            '0 0 10px rgba(147, 51, 234, 0.2)',
+            '0 0 15px rgba(147, 51, 234, 0.3)',
+            '0 0 10px rgba(147, 51, 234, 0.2)',
+          ]
+        : [
+            '0 0 10px rgba(147, 51, 234, 0.3)',
+            '0 0 20px rgba(147, 51, 234, 0.5)',
+            '0 0 10px rgba(147, 51, 234, 0.3)',
+          ],
       transition: {
-        duration: prefersReducedMotion ? 0 : 2,
+        duration: prefersReducedMotion ? 0 : isMobile ? 2 : 3,
         repeat: Infinity,
         ease: 'easeInOut',
-        delay: prefersReducedMotion ? 0 : index * 0.2 + 1,
+        delay: prefersReducedMotion ? 0 : index * (isMobile ? 0.2 : 0.4) + 1,
       },
     },
   });
@@ -141,7 +168,7 @@ const AboutSection = () => {
   return (
     <motion.section
       id="more"
-      className="py-20 bg-white overflow-hidden relative"
+      className="py-16 bg-white overflow-hidden relative"
       ref={sectionRef}
       initial="hidden"
       animate={isInView ? 'visible' : 'hidden'}
@@ -150,63 +177,76 @@ const AboutSection = () => {
       aria-label="About Section"
     >
       {/* Background decorative elements */}
-      {!prefersReducedMotion && (
+      {!prefersReducedMotion && !isMobile && (
         <div className="absolute inset-0 pointer-events-none">
           <motion.div
-            className="absolute top-10 left-10 w-48 h-48 bg-blue-100 rounded-full mix-blend-multiply blur-xl opacity-20"
-            animate={{ scale: [1, 1.2, 1], opacity: [0.2, 0.4, 0.2], rotate: [0, 45, 0] }}
-            transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+            className="absolute top-10 left-10 w-48 h-48 rounded-full mix-blend-multiply blur-2xl opacity-25"
+            style={{ background: 'radial-gradient(circle, #9333ea, #6b21a8)' }}
+            animate={{
+              scale: [1, 1.2, 1],
+              opacity: [0.25, 0.4, 0.25],
+              rotate: [0, 60, 0],
+              x: [0, 15, 0],
+              y: [0, -15, 0],
+            }}
+            transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
           ></motion.div>
           <motion.div
-            className="absolute bottom-10 right-10 w-48 h-48 bg-purple-100 rounded-full mix-blend-multiply blur-xl opacity-20"
-            animate={{ scale: [1, 1.2, 1], opacity: [0.2, 0.4, 0.2], rotate: [0, -45, 0] }}
-            transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
-          ></motion.div>
-          <motion.div
-            className="absolute top-1/3 left-1/4 w-32 h-32 bg-pink-100 rounded-lg mix-blend-multiply blur-lg opacity-15"
-            animate={{ y: [0, -20, 0], scale: [1, 1.1, 1] }}
-            transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
+            className="absolute bottom-10 right-10 w-48 h-48 rounded-full mix-blend-multiply blur-2xl opacity-25"
+            style={{ background: 'radial-gradient(circle, #9333ea, #6b21a8)' }}
+            animate={{
+              scale: [1, 1.2, 1],
+              opacity: [0.25, 0.4, 0.25],
+              rotate: [0, -60, 0],
+              x: [0, -15, 0],
+              y: [0, 15, 0],
+            }}
+            transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 1.5 }}
           ></motion.div>
         </div>
       )}
 
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-6xl mx-auto">
-          <motion.div className="text-center mb-16" variants={sectionVariants}>
+          <motion.div className="text-center mb-12" variants={sectionVariants}>
             <motion.h2
-              className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 inline-flex"
+              className="text-2xl sm:text-3xl md:text-4xl font-bold text-purple-700 mb-6 flex justify-center whitespace-normal break-words max-w-4xl mx-auto"
               variants={headingVariants}
+              style={{ overflowWrap: 'break-word', width: '100%' }}
             >
               {headingText.map((letter, index) => (
                 <motion.span
                   key={index}
                   variants={letterVariants}
                   custom={index}
+                  style={{ display: 'inline-block', minWidth: '0' }}
                 >
                   {letter === ' ' ? '\u00A0' : letter}
                 </motion.span>
               ))}
             </motion.h2>
             <motion.div
-              className="w-24 h-1 bg-blue-600 mx-auto"
+              className="w-24 h-1 bg-gradient-to-r from-purple-600 to-purple-800 mx-auto"
               variants={headingVariants}
+              animate={{ scaleX: [0, 1], originX: 0 }}
+              transition={{ duration: prefersReducedMotion ? 0 : 0.6, ease: 'easeOut' }}
             ></motion.div>
           </motion.div>
 
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <div className="grid lg:grid-cols-2 gap-8 items-center">
             <motion.div variants={sectionVariants}>
               {paragraphWords.map((words, index) => (
                 <motion.p
                   key={index}
-                  className="text-lg text-gray-600 leading-relaxed mb-6"
+                  className="text-base sm:text-lg text-purple-600 leading-relaxed mb-6"
                   variants={sectionVariants}
                   whileHover={
-                    prefersReducedMotion
+                    prefersReducedMotion || isMobile
                       ? {}
                       : {
                           y: -3,
-                          color: '#2563eb', // Blue-600
-                          textShadow: '0 0 10px rgba(0, 0, 255, 0.4)',
+                          color: '#7e22ce',
+                          textShadow: '0 0 8px rgba(147, 51, 234, 0.4)',
                           transition: { duration: 0.3 },
                         }
                   }
@@ -220,7 +260,7 @@ const AboutSection = () => {
                     >
                       {word === '80%' ? (
                         <span
-                          className="font-semibold text-blue-600"
+                          className="font-semibold text-purple-700"
                           dangerouslySetInnerHTML={{ __html: word }}
                         />
                       ) : (
@@ -233,11 +273,11 @@ const AboutSection = () => {
             </motion.div>
 
             <motion.div
-              className="bg-gradient-to-br from-blue-50 to-purple-50 p-8 rounded-2xl"
+              className="bg-gradient-to-br from-purple-50 to-purple-100 p-6 sm:p-8 rounded-2xl shadow-md"
               style={{ y: statsParallaxY }}
               variants={statsContainerVariants}
             >
-              <div className="grid grid-cols-2 gap-6 text-center">
+              <div className="grid grid-cols-2 gap-4 sm:gap-6 text-center">
                 {[
                   { value: '15+', label: 'Years of Service' },
                   { value: '80%', label: 'Repeat Business' },
@@ -246,26 +286,58 @@ const AboutSection = () => {
                 ].map((stat, index) => (
                   <motion.div
                     key={index}
-                    className="bg-white p-6 rounded-xl shadow-lg"
+                    className="bg-white p-4 sm:p-6 rounded-xl shadow-md relative overflow-hidden"
                     style={{ y: cardParallaxY(index), rotate: cardParallaxRotate(index) }}
                     variants={statItemVariants(index)}
                     custom={index}
-                    animate={isInView && !prefersReducedMotion ? ['visible', 'float'] : 'visible'}
+                    animate={isInView && !prefersReducedMotion ? ['visible', 'pulse'] : 'visible'}
                     whileHover={
-                      prefersReducedMotion
+                      prefersReducedMotion || isMobile
                         ? {}
                         : {
-                            scale: 1.1,
-                            rotate: index % 2 === 0 ? 3 : -3,
+                            scale: 1.05,
                             y: -5,
-                            backgroundColor: '#e0f2fe',
-                            boxShadow: '0 0 15px rgba(0, 0, 255, 0.3)',
+                            rotate: index % 2 === 0 ? 1 : -1,
+                            backgroundColor: '#f3e8ff',
+                            boxShadow: '0 0 20px rgba(147, 51, 234, 0.4)',
                             transition: { duration: 0.3 },
                           }
                     }
                   >
-                    <div className="text-3xl font-bold text-blue-600 mb-2">{stat.value}</div>
-                    <div className="text-gray-700 font-medium">{stat.label}</div>
+                    {!prefersReducedMotion && !isMobile && (
+                      <motion.div
+                        className="absolute inset-0 bg-gradient-to-br from-purple-200/20 to-purple-400/20"
+                        animate={{
+                          opacity: [0.2, 0.3, 0.2],
+                          scale: [1, 1.03, 1],
+                        }}
+                        transition={{
+                          duration: 2,
+                          repeat: Infinity,
+                          ease: 'easeInOut',
+                          delay: index * 0.2,
+                        }}
+                      />
+                    )}
+                    <div className="relative z-10">
+                      <motion.div
+                        className="text-2xl sm:text-3xl font-bold text-purple-800 mb-2 sm:mb-3"
+                        animate={
+                          !prefersReducedMotion && !isMobile
+                            ? { color: ['#7e22ce', '#6b21a8', '#7e22ce'] }
+                            : {}
+                        }
+                        transition={{
+                          duration: 1.5,
+                          repeat: Infinity,
+                          ease: 'easeInOut',
+                          delay: index * 0.2,
+                        }}
+                      >
+                        {stat.value}
+                      </motion.div>
+                      <div className="text-purple-600 font-medium text-sm sm:text-base">{stat.label}</div>
+                    </div>
                   </motion.div>
                 ))}
               </div>
