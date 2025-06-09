@@ -104,7 +104,7 @@ const Banner = () => {
     playsInline
     aria-hidden="true"
   >
-    <source src="src/assets/dashboard.mp4" type="video/mp4" />
+    <source src="public/dashboard.mp4" type="video/mp4" />
     Your browser does not support the video tag.
   </video>
 </motion.div>
