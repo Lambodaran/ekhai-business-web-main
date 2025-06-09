@@ -104,7 +104,7 @@ const Banner = () => {
     playsInline
     aria-hidden="true"
   >
-    <source src="https://github.com/Lambodaran/ekhai-business-web-main/blob/73ef5a8078d085dd9d92439c3a40b22936dcb6c7/src/assets/dashboard.mp4" type="video/mp4" />
+    <source src="src/assets/dashboard.mp4" type="video/mp4" />
     Your browser does not support the video tag.
   </video>
 </motion.div>
