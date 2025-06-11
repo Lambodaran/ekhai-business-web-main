@@ -25,7 +25,7 @@ const Header = () => {
   const getTextColor = () => {
     if (isMenuOpen) return 'text-white';
     if (isScrolled) return 'text-white';
-    if (location.pathname === '/') return 'text-white';
+    if (location.pathname === '/') return 'text-black';
     return 'text-gray-900';
   };
 
@@ -138,25 +138,25 @@ const Header = () => {
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           <motion.div
-            custom={0}
-            variants={navItemVariants}
-          >
-            <Link 
-              to="/" 
-              className={`text-2xl font-bold ${getTextColor()} flex items-center`} 
-              aria-label="Ekhai Business Solutions Home"
-            >
-              <motion.img 
-                src={Logo} 
-                alt="Ekhai Business Solutions Logo" 
-                className="h-8 w-auto" 
-                style={{ boxShadow: '0 0 10px 2px rgba(128, 0, 128, 0.8)' }}
-                loading="eager"
-                whileHover={{ scale: 1.05 }}
-                transition={{ type: "spring", stiffness: 400, damping: 10 }}
-              />
-            </Link>
-          </motion.div>
+  custom={0}
+  variants={navItemVariants}
+>
+  <Link 
+    to="/" 
+    className={`text-2xl font-bold ${getTextColor()} flex items-center`} 
+    aria-label="Ekhai Business Solutions Home"
+  >
+    <motion.img 
+      src={Logo} 
+      alt="Ekhai Business Solutions Logo" 
+      className="h-12 w-32"
+      style={{ boxShadow: '0 0 10px 2px rgba(128, 0, 128, 0.8)' }}
+      loading="eager"
+      whileHover={{ scale: 1.05 }}
+      transition={{ type: "spring", stiffness: 400, damping: 10 }}
+    />
+  </Link>
+</motion.div>
 
           <motion.button
             custom={1}

@@ -40,76 +40,77 @@ const ClientsSection = () => {
   const prefersReducedMotion = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   // Section variants
-  const sectionVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        duration: prefersReducedMotion ? 0 : 0.8,
-        ease: 'easeOut',
-        staggerChildren: prefersReducedMotion ? 0 : 0.2,
-      },
+ const sectionVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      duration: prefersReducedMotion ? 0 : 1.2, // Slower duration (was 0.8)
+      ease: 'easeOut',
+      staggerChildren: prefersReducedMotion ? 0 : 0.3, // Slower stagger (was 0.2)
     },
-  };
+  },
+};
 
   // Text variants for heading and description
   const textVariants = {
-    hidden: { opacity: 0, y: 20, filter: 'blur(4px)' },
-    visible: {
-      opacity: 1,
-      y: 0,
-      filter: 'blur(0px)',
-      transition: { duration: prefersReducedMotion ? 0 : 0.6, ease: 'easeOut' },
-    },
-  };
+  hidden: { opacity: 0, y: 20, filter: 'blur(4px)' },
+  visible: {
+    opacity: 1,
+    y: 0,
+    filter: 'blur(0px)',
+    transition: { duration: prefersReducedMotion ? 0 : 1, // Slower duration (was 0.6)
+      ease: 'easeOut' },
+  },
+};
 
   // Different logo animation variants for variety
   const logoVariants = (index: number) => ({
-    hidden: {
-      opacity: 0,
-      y: index % 3 === 0 ? 30 : 0, // Some slide up
-      x: index % 3 === 1 ? -30 : 0, // Some slide from left
-      scale: index % 3 === 2 ? 0.7 : 1, // Some zoom in
-      filter: 'blur(4px)',
+  hidden: {
+    opacity: 0,
+    y: index % 3 === 0 ? 30 : 0,
+    x: index % 3 === 1 ? -30 : 0,
+    scale: index % 3 === 2 ? 0.7 : 1,
+    filter: 'blur(4px)',
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    x: 0,
+    scale: 1,
+    filter: 'blur(0px)',
+    transition: {
+      duration: prefersReducedMotion ? 0 : 0.8, // Slower duration (was 0.5)
+      ease: 'easeOut',
+      delay: prefersReducedMotion ? 0 : index * 0.15, // Slower delay (was 0.1)
     },
-    visible: {
-      opacity: 1,
-      y: 0,
-      x: 0,
-      scale: 1,
-      filter: 'blur(0px)',
-      transition: {
-        duration: prefersReducedMotion ? 0 : 0.5,
-        ease: 'easeOut',
-        delay: prefersReducedMotion ? 0 : index * 0.1,
-      },
-    },
-  });
+  },
+});
 
   // Carousel container animation with bounce effect
   const carouselVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: [20, -10, 0], // Bounce effect
-      transition: {
-        duration: prefersReducedMotion ? 0 : 0.8,
-        ease: 'easeOut',
-        y: { duration: prefersReducedMotion ? 0 : 0.8, times: [0, 0.5, 1] },
-      },
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: [20, -10, 0],
+    transition: {
+      duration: prefersReducedMotion ? 0 : 1.2, // Slower duration (was 0.8)
+      ease: 'easeOut',
+      y: { duration: prefersReducedMotion ? 0 : 1.2, times: [0, 0.5, 1] }, // Slower bounce
     },
-  };
+  },
+};
 
   // Infinite scroll animation
-  useAnimationFrame((time) => {
-    if (!prefersReducedMotion && isInView) {
-      setScrollX((prev) => {
-        const containerWidth = containerRef.current?.offsetWidth || 0;
-        const totalWidth = clients.length * (24 * 4 + 32); // w-24 + mx-8 in rem
-        return prev <= -totalWidth ? 0 : prev - 0.5; // Reset when reaching end
-      });
-    }
-  });
+ useAnimationFrame((time) => {
+  if (!prefersReducedMotion && isInView) {
+    setScrollX((prev) => {
+      const containerWidth = containerRef.current?.offsetWidth || 0;
+      const totalWidth = clients.length * (24 * 4 + 32); // w-24 + mx-8 in rem
+      return prev <= -totalWidth ? 0 : prev - 0.2; // Slower scroll speed (was 0.5)
+    });
+  }
+});
 
   return (
     <motion.section
@@ -122,20 +123,20 @@ const ClientsSection = () => {
       aria-label="Clients Section"
     >
       {/* Background decorative elements */}
-      {!prefersReducedMotion && (
-        <div className="absolute inset-0 pointer-events-none">
-          <motion.div
-            className="absolute top-10 left-20 w-48 h-48 bg-blue-100 rounded-full mix-blend-multiply blur-xl opacity-20"
-            animate={{ scale: [1, 1.1, 1], opacity: [0.2, 0.3, 0.2] }}
-            transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
-          ></motion.div>
-          <motion.div
-            className="absolute bottom-10 right-20 w-48 h-48 bg-purple-100 rounded-full mix-blend-multiply blur-xl opacity-20"
-            animate={{ scale: [1, 1.1, 1], opacity: [0.2, 0.3, 0.2] }}
-            transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
-          ></motion.div>
-        </div>
-      )}
+     {!prefersReducedMotion && (
+  <div className="absolute inset-0 pointer-events-none">
+    <motion.div
+      className="absolute top-10 left-20 w-48 h-48 bg-blue-100 rounded-full blur-xl opacity-20"
+      animate={{ scale: [1, 1.1, 1], opacity: [0.2, 0.3, 0.2] }}
+      transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }} // Slower duration (was 3)
+    ></motion.div>
+    <motion.div
+      className="absolute bottom-10 right-20 w-48 h-48 bg-purple-100 rounded-full blur-xl opacity-20"
+      animate={{ scale: [1, 1.1, 1], opacity: [0.2, 0.3, 0.2] }}
+      transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 1.5 }} // Slower duration and delay (was 3, 1)
+    ></motion.div>
+  </div>
+)}
 
       <div className="container mx-auto px-4 relative z-10">
         <motion.div className="text-center mb-12" variants={sectionVariants}>

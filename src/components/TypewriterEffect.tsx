@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 
 interface TypewriterEffectProps {
@@ -6,13 +5,15 @@ interface TypewriterEffectProps {
   speed?: number;
   deleteSpeed?: number;
   pauseTime?: number;
+  className?: string;
 }
 
 const TypewriterEffect = ({ 
   texts, 
   speed = 100, 
   deleteSpeed = 50, 
-  pauseTime = 2000 
+  pauseTime = 2000,
+  className,
 }: TypewriterEffectProps) => {
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
   const [currentText, setCurrentText] = useState('');
@@ -49,7 +50,7 @@ const TypewriterEffect = ({
   }, [currentText, isDeleting, isPaused, currentTextIndex, texts, speed, deleteSpeed, pauseTime]);
 
   return (
-    <span className="text-blue-600 font-semibold">
+    <span className={className || 'text-blue-600 font-semibold'}>
       {currentText}
       <span className="animate-pulse">|</span>
     </span>

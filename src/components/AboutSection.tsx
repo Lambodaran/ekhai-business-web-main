@@ -4,7 +4,7 @@ import { useRef, useEffect, useState } from 'react';
 const AboutSection = () => {
   const sectionRef = useRef(null);
   const [isMobile, setIsMobile] = useState(false);
-  const isInView = useInView(sectionRef, { once: true, amount: 0.1, margin: '-20px' });
+  const isInView = useInView(sectionRef, { once: true, amount: 0.3, margin: '-100px' }); // Adjusted for earlier trigger
 
   // Detect mobile view
   useEffect(() => {
@@ -22,10 +22,19 @@ const AboutSection = () => {
     offset: ['start end', 'end start'],
   });
   const statsParallaxY = useTransform(scrollYProgress, [0, 1], ['0%', isMobile ? '4%' : '8%']);
-  const cardParallaxY = (index: number) =>
-    useTransform(scrollYProgress, [0, 1], ['0%', isMobile ? `${2 + index * 0.5}%` : `${3 + index * 1}%`]);
-  const cardParallaxRotate = (index: number) =>
-    useTransform(scrollYProgress, [0, 1], [0, isMobile ? 0 : index % 2 === 0 ? 1 : -1]);
+  // Define parallax transformations for each card at the top level
+  const cardParallaxYs = [
+    useTransform(scrollYProgress, [0, 1], ['0%', isMobile ? '2%' : '3%']),
+    useTransform(scrollYProgress, [0, 1], ['0%', isMobile ? '2.5%' : '4%']),
+    useTransform(scrollYProgress, [0, 1], ['0%', isMobile ? '3%' : '5%']),
+    useTransform(scrollYProgress, [0, 1], ['0%', isMobile ? '3.5%' : '6%']),
+  ];
+  const cardParallaxRotates = [
+    useTransform(scrollYProgress, [0, 1], [0, isMobile ? 0 : 1]),
+    useTransform(scrollYProgress, [0, 1], [0, isMobile ? 0 : -1]),
+    useTransform(scrollYProgress, [0, 1], [0, isMobile ? 0 : 1]),
+    useTransform(scrollYProgress, [0, 1], [0, isMobile ? 0 : -1]),
+  ];
 
   // Check for reduced motion preference
   const prefersReducedMotion = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -36,9 +45,9 @@ const AboutSection = () => {
     visible: {
       opacity: 1,
       transition: {
-        duration: prefersReducedMotion ? 0 : 0.8,
+        duration: prefersReducedMotion ? 0 : 1.2,
         ease: 'easeOut',
-        staggerChildren: prefersReducedMotion ? 0 : 0.2,
+        staggerChildren: prefersReducedMotion ? 0 : 0.3,
       },
     },
   };
@@ -52,7 +61,7 @@ const AboutSection = () => {
       y: 0,
       scale: 1,
       filter: 'blur(0px)',
-      transition: { duration: prefersReducedMotion ? 0 : 0.6, ease: 'easeOut' },
+      transition: { duration: prefersReducedMotion ? 0 : 1, ease: 'easeOut' },
     },
   };
   const letterVariants = {
@@ -62,9 +71,9 @@ const AboutSection = () => {
       y: 0,
       scale: isMobile ? 1 : [0.9, 1.1, 1],
       transition: {
-        duration: prefersReducedMotion ? 0 : isMobile ? 0.4 : 0.6,
-        delay: prefersReducedMotion ? 0 : i * 0.03,
-        scale: { duration: prefersReducedMotion ? 0 : 0.4 },
+        duration: prefersReducedMotion ? 0 : isMobile ? 0.6 : 0.8,
+        delay: prefersReducedMotion ? 0 : i * 0.05,
+        scale: { duration: prefersReducedMotion ? 0 : 0.6 },
       },
     }),
   };
@@ -91,9 +100,9 @@ const AboutSection = () => {
       scale: 1,
       filter: 'blur(0px)',
       transition: {
-        duration: prefersReducedMotion ? 0 : isMobile ? 0.4 : 0.6,
+        duration: prefersReducedMotion ? 0 : isMobile ? 0.6 : 0.8,
         ease: 'easeOut',
-        delay: prefersReducedMotion ? 0 : index * 0.3 + wordIndex * 0.04,
+        delay: prefersReducedMotion ? 0 : index * 0.5 + wordIndex * 0.06,
       },
     },
   });
@@ -105,12 +114,12 @@ const AboutSection = () => {
       opacity: 1,
       y: 0,
       transition: {
-        duration: prefersReducedMotion ? 0 : isMobile ? 0.6 : 0.8,
+        duration: prefersReducedMotion ? 0 : isMobile ? 0.8 : 1.2,
         type: 'spring',
-        stiffness: isMobile ? 150 : 120,
-        damping: 15,
-        staggerChildren: prefersReducedMotion ? 0 : isMobile ? 0.15 : 0.3,
-        delayChildren: prefersReducedMotion ? 0 : isMobile ? 0.3 : 0.5,
+        stiffness: isMobile ? 120 : 100,
+        damping: 20,
+        staggerChildren: prefersReducedMotion ? 0 : isMobile ? 0.2 : 0.4,
+        delayChildren: prefersReducedMotion ? 0 : isMobile ? 0.5 : 0.8,
       },
     },
   };
@@ -119,15 +128,17 @@ const AboutSection = () => {
   const statItemVariants = (index: number) => ({
     hidden: {
       opacity: 0,
-      scale: isMobile ? 0.9 : 0.7,
-      rotateY: isMobile ? 0 : index % 2 === 0 ? 90 : -90,
-      filter: isMobile ? 'blur(4px)' : 'blur(8px)',
+      scale: isMobile ? 0.8 : 0.7,
+      x: index === 0 ? (isMobile ? -50 : -80) : index === 1 ? (isMobile ? 50 : 80) : 0, // Left for 0, right for 1
+      y: index === 2 ? (isMobile ? 50 : 80) : index === 3 ? (isMobile ? -50 : -80) : 0, // Bottom for 2, top for 3
+      filter: 'blur(4px)',
       boxShadow: '0 0 0 rgba(0, 0, 0, 0)',
     },
     visible: {
       opacity: 1,
       scale: 1,
-      rotateY: 0,
+      x: 0,
+      y: 0,
       filter: 'blur(0px)',
       boxShadow: isMobile
         ? '0 0 15px rgba(147, 51, 234, 0.3)'
@@ -137,10 +148,10 @@ const AboutSection = () => {
             '0 0 10px rgba(147, 51, 234, 0.3)',
           ],
       transition: {
-        duration: prefersReducedMotion ? 0 : isMobile ? 0.5 : 0.8,
+        duration: prefersReducedMotion ? 0 : isMobile ? 1.2 : 1.8,
         ease: 'easeOut',
-        delay: prefersReducedMotion ? 0 : index * (isMobile ? 0.15 : 0.25),
-        boxShadow: { duration: prefersReducedMotion ? 0 : isMobile ? 0.5 : 1.2, times: [0, 0.5, 1] },
+        delay: prefersReducedMotion ? 0 : index * (isMobile ? 0.3 : 0.5),
+        boxShadow: { duration: prefersReducedMotion ? 0 : isMobile ? 1.2 : 2.4, times: [0, 0.5, 1] },
       },
     },
     pulse: {
@@ -157,10 +168,10 @@ const AboutSection = () => {
             '0 0 10px rgba(147, 51, 234, 0.3)',
           ],
       transition: {
-        duration: prefersReducedMotion ? 0 : isMobile ? 2 : 3,
+        duration: prefersReducedMotion ? 0 : isMobile ? 3 : 4,
         repeat: Infinity,
         ease: 'easeInOut',
-        delay: prefersReducedMotion ? 0 : index * (isMobile ? 0.2 : 0.4) + 1,
+        delay: prefersReducedMotion ? 0 : index * (isMobile ? 0.3 : 0.6) + 1,
       },
     },
   });
@@ -189,7 +200,7 @@ const AboutSection = () => {
               x: [0, 15, 0],
               y: [0, -15, 0],
             }}
-            transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
+            transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
           ></motion.div>
           <motion.div
             className="absolute bottom-10 right-10 w-48 h-48 rounded-full mix-blend-multiply blur-2xl opacity-25"
@@ -201,7 +212,7 @@ const AboutSection = () => {
               x: [0, -15, 0],
               y: [0, 15, 0],
             }}
-            transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 1.5 }}
+            transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
           ></motion.div>
         </div>
       )}
@@ -229,7 +240,7 @@ const AboutSection = () => {
               className="w-24 h-1 bg-gradient-to-r from-purple-600 to-purple-800 mx-auto"
               variants={headingVariants}
               animate={{ scaleX: [0, 1], originX: 0 }}
-              transition={{ duration: prefersReducedMotion ? 0 : 0.6, ease: 'easeOut' }}
+              transition={{ duration: prefersReducedMotion ? 0 : 1, ease: 'easeOut' }}
             ></motion.div>
           </motion.div>
 
@@ -247,7 +258,7 @@ const AboutSection = () => {
                           y: -3,
                           color: '#7e22ce',
                           textShadow: '0 0 8px rgba(147, 51, 234, 0.4)',
-                          transition: { duration: 0.3 },
+                          transition: { duration: 0.5 },
                         }
                   }
                 >
@@ -287,10 +298,11 @@ const AboutSection = () => {
                   <motion.div
                     key={index}
                     className="bg-white p-4 sm:p-6 rounded-xl shadow-md relative overflow-hidden"
-                    style={{ y: cardParallaxY(index), rotate: cardParallaxRotate(index) }}
+                    style={{ y: cardParallaxYs[index], rotate: cardParallaxRotates[index] }}
                     variants={statItemVariants(index)}
                     custom={index}
-                    animate={isInView && !prefersReducedMotion ? ['visible', 'pulse'] : 'visible'}
+                    initial="hidden" // Explicitly set initial state
+                    animate={isInView && !prefersReducedMotion ? 'visible' : 'hidden'} // Simplified animate logic
                     whileHover={
                       prefersReducedMotion || isMobile
                         ? {}
@@ -300,7 +312,7 @@ const AboutSection = () => {
                             rotate: index % 2 === 0 ? 1 : -1,
                             backgroundColor: '#f3e8ff',
                             boxShadow: '0 0 20px rgba(147, 51, 234, 0.4)',
-                            transition: { duration: 0.3 },
+                            transition: { duration: 0.5 },
                           }
                     }
                   >
@@ -312,10 +324,10 @@ const AboutSection = () => {
                           scale: [1, 1.03, 1],
                         }}
                         transition={{
-                          duration: 2,
+                          duration: 3,
                           repeat: Infinity,
                           ease: 'easeInOut',
-                          delay: index * 0.2,
+                          delay: index * 0.3,
                         }}
                       />
                     )}
@@ -328,10 +340,10 @@ const AboutSection = () => {
                             : {}
                         }
                         transition={{
-                          duration: 1.5,
+                          duration: 2,
                           repeat: Infinity,
                           ease: 'easeInOut',
-                          delay: index * 0.2,
+                          delay: index * 0.3,
                         }}
                       >
                         {stat.value}

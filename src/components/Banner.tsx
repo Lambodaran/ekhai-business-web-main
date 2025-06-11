@@ -3,52 +3,14 @@ import { useRef, useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types'; // Optional for type checking
 import TypewriterEffect from './TypewriterEffect';
-import DashboardVideo from '../../public/dashboard.mp4'; // Imported video
+import DashboardVideo from '/dashboard.mp4'; // Imported video
 import ImgBanner from '../assets/banner.png';
 
 // Constants for animation durations
 const ANIMATION_DURATION = 0.8;
 const CHILD_ANIMATION_DURATION = 0.6;
 const CIRCLE_ANIMATION_DURATION = 4;
-
-// Component for the light overlay
-const Overlay = () => (
-  <div className="absolute inset-0 bg-white/10" aria-hidden="true"></div>
-);
-
-// Component for decorative animated circles
-const DecorativeCircles = ({ prefersReducedMotion }) => {
-  if (prefersReducedMotion) return null;
-
-  return (
-    <div className="absolute inset-0">
-      <motion.div
-        className="absolute top-20 left-10 w-64 h-64 bg-blue-200 rounded-full mix-blend-multiply blur-lg opacity-30 md:w-72 md:h-72"
-        animate={{ y: [0, -20, 0], opacity: [0.3, 0.5, 0.3] }}
-        transition={{ duration: CIRCLE_ANIMATION_DURATION, repeat: Infinity, ease: 'easeInOut' }}
-        style={{ willChange: 'transform, opacity' }}
-        aria-hidden="true"
-        title="Decorative blue circle"
-      ></motion.div>
-      <motion.div
-        className="absolute top-40 right-10 w-64 h-64 bg-purple-200 rounded-full mix-blend-multiply blur-lg opacity-30 md:w-72 md:h-72"
-        animate={{ y: [0, 20, 0], opacity: [0.3, 0.5, 0.3] }}
-        transition={{ duration: CIRCLE_ANIMATION_DURATION, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
-        style={{ willChange: 'transform, opacity' }}
-        aria-hidden="true"
-        title="Decorative purple circle"
-      ></motion.div>
-      <motion.div
-        className="absolute -bottom-32 left-20 w-64 h-64 bg-pink-200 rounded-full mix-blend-multiply blur-lg opacity-30 md:w-72 md:h-72"
-        animate={{ y: [0, -20, 0], opacity: [0.3, 0.5, 0.3] }}
-        transition={{ duration: CIRCLE_ANIMATION_DURATION, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
-        style={{ willChange: 'transform, opacity' }}
-        aria-hidden="true"
-        title="Decorative pink circle"
-      ></motion.div>
-    </div>
-  );
-};
+const GRADIENT_OVERLAY_DURATION = 2;
 
 const Banner = () => {
   // Memoized services array
@@ -86,7 +48,7 @@ const Banner = () => {
         behavior: prefersReducedMotion ? 'auto' : 'smooth',
       });
     }
-  }, []); // Empty dependency array ensures this runs only on mount
+  }, [prefersReducedMotion]); // Added prefersReducedMotion to dependency array
 
   // Animation variants
   const sectionVariants = {
@@ -157,7 +119,7 @@ const Banner = () => {
           muted
           playsInline
           preload="metadata"
-          poster={ImgBanner} // Fallback image while video loads
+          poster={ImgBanner}
           aria-hidden="true"
         >
           <source src={DashboardVideo} type="video/mp4" />
@@ -165,17 +127,11 @@ const Banner = () => {
         </video>
       </motion.div>
 
-      {/* Light overlay */}
-      <Overlay />
-
-      {/* Decorative animated circles */}
-      <DecorativeCircles prefersReducedMotion={prefersReducedMotion} />
-
       {/* Main content */}
       <div className="container mx-auto px-4 text-center relative z-10 mt-20">
         <motion.div variants={sectionVariants}>
           <motion.h1
-            className="text-4xl sm:text-5xl md:text-7xl font-bold text-gray-800 mb-6 leading-tight"
+            className="text-4xl sm:text-5xl md:text-7xl font-bold text-gray-800 mb-6 leading-tight drop-shadow-lg"
             variants={childVariants}
           >
             <span className="text-blue-600">Ekhai</span> Business
@@ -185,14 +141,20 @@ const Banner = () => {
             </span>
           </motion.h1>
           <motion.div
-            className="text-lg sm:text-xl md:text-2xl text-gray-700 mb-8 h-16 flex items-center justify-center"
+            className="text-lg sm:text-xl md:text-2xl text-navy-900 font-bold shadow-md mb-8 h-16 flex items-center justify-center"
             variants={childVariants}
           >
             <span className="mr-3">We provide</span>
-            <TypewriterEffect texts={services} speed={80} deleteSpeed={40} pauseTime={1500} />
+            <TypewriterEffect
+              texts={services}
+              speed={80}
+              deleteSpeed={40}
+              pauseTime={1500}
+              className="text-black font-bold shadow-md"
+            />
           </motion.div>
           <motion.p
-            className="text-base sm:text-lg text-gray-700 mb-10 max-w-3xl mx-auto leading-relaxed"
+            className="text-lg sm:text-xl md:text-2xl text-navy-900 font-semibold shadow-sm mb-10 max-w-3xl mx-auto leading-relaxed"
             variants={childVariants}
             id="banner-description"
           >
@@ -205,10 +167,10 @@ const Banner = () => {
           >
             <Link to="/contact">
               <motion.button
-                className="bg-blue-600 text-white px-8 py-4 sm:px-10 sm:py-5 rounded-lg text-lg font-semibold hover:bg-blue-700 focus:ring-2 focus:ring-blue-600 transition-all duration-300 shadow-lg hover:shadow-xl"
+                className="bg-blue-600 text-white px-8 py-4 sm:px-10 sm:py-5 rounded-lg text-lg font-semibold hover:bg-blue-700 focus:ring-2 focus:ring-blue-600 transition-all duration-300 shadow-lg hover:shadow-xl border-2 border-transparent hover:border-blue-400/50"
                 aria-label="Contact Ekhai Business Solutions for recruitment, legal, IT, and CSR services"
                 variants={buttonVariants}
-                whileHover={prefersReducedMotion ? {} : { scale: 1.05 }}
+                whileHover={prefersReducedMotion ? {} : { scale: 1.05, boxShadow: '0 0 15px rgba(59, 130, 246, 0.5)' }}
                 whileTap={prefersReducedMotion ? {} : { scale: 0.95 }}
                 layout
               >
@@ -217,10 +179,10 @@ const Banner = () => {
             </Link>
             <a href="#more">
               <motion.button
-                className="border-2 border-blue-600 text-blue-600 px-8 py-4 sm:px-10 sm:py-5 rounded-lg text-lg font-semibold hover:bg-blue-600 hover:text-white focus:ring-2 focus:ring-blue-600 transition-all duration-300 shadow-lg hover:shadow-xl"
+                className="bg-blue-600 text-white px-8 py-4 sm:px-10 sm:py-5 rounded-lg text-lg font-semibold hover:bg-blue-700 focus:ring-2 focus:ring-blue-600 transition-all duration-300 shadow-lg hover:shadow-xl border-2 border-transparent hover:border-blue-400/50"
                 aria-label="Explore recruitment, legal, IT, and CSR services offered by Ekhai Business Solutions"
                 variants={secondButtonVariants}
-                whileHover={prefersReducedMotion ? {} : { scale: 1.05 }}
+                whileHover={prefersReducedMotion ? {} : { scale: 1.05, boxShadow: '0 0 15px rgba(59, 130, 246, 0.5)' }}
                 whileTap={prefersReducedMotion ? {} : { scale: 0.95 }}
                 layout
               >
@@ -239,10 +201,6 @@ Banner.propTypes = {
   services: PropTypes.arrayOf(PropTypes.string),
   videoSrc: PropTypes.string,
   fallbackImg: PropTypes.string,
-};
-
-DecorativeCircles.propTypes = {
-  prefersReducedMotion: PropTypes.bool.isRequired,
 };
 
 export default Banner;

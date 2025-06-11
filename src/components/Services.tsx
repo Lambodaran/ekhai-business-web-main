@@ -1,20 +1,23 @@
 import { motion, useInView } from 'framer-motion';
-import { useRef } from 'react';
+import { useRef, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { CheckCircle } from 'lucide-react';
 
 const Services = () => {
-  const services = [
-    { name: 'IT Solutions', path: '/services/it-solutions' },
-    { name: 'Legal Services', path: '/services/legal' },
-    { name: 'CSR Event Planners', path: '/services/csr' },
-    { name: 'Recruitment', path: '/services/recruitment' },
-    { name: 'Internships', path: '/services/internships' },
-    { name: 'Souvenir', path: '/services/souvenir' },
-  ];
+  const services = useMemo(
+    () => [
+      { name: 'IT Solutions', path: '/services/it-solutions' },
+      { name: 'Legal Services', path: '/services/legal' },
+      { name: 'CSR Event Planners', path: '/services/csr' },
+      { name: 'Recruitment', path: '/services/recruitment' },
+      { name: 'Internships', path: '/services/internships' },
+      { name: 'Souvenir', path: '/services/souvenir' },
+    ],
+    []
+  );
 
   const sectionRef = useRef(null);
-  const isInView = useInView(sectionRef, { once: true, amount: 0.2 });
+  const isInView = useInView(sectionRef, { once: true, amount: 0.3, margin: '0px 0px -100px 0px' });
 
   const prefersReducedMotion = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -24,8 +27,8 @@ const Services = () => {
     visible: {
       opacity: 1,
       transition: {
-        duration: prefersReducedMotion ? 0 : 1,
-        ease: [0.16, 0.77, 0.47, 0.97],
+        duration: prefersReducedMotion ? 0 : 0.8,
+        ease: 'easeInOut',
       },
     },
   };
@@ -37,46 +40,40 @@ const Services = () => {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.8,
-        ease: [0.6, 0.05, 0.5, 0.99],
+        duration: 0.6,
+        ease: 'easeInOut',
       },
     },
   };
 
-  // Card animation with 3D flip effect
+  // Card animation
   const cardVariants = (index: number) => ({
-    hidden: {
-      opacity: 0,
-      rotateY: 90,
-      x: index % 2 === 0 ? -50 : 50,
-    },
+    hidden: { opacity: 0, y: 30 },
     visible: {
       opacity: 1,
-      rotateY: 0,
-      x: 0,
+      y: 0,
       transition: {
-        duration: 0.8,
-        delay: index * 0.1,
-        ease: [0.16, 0.77, 0.47, 0.97],
+        duration: 0.6,
+        delay: index * 0.15,
+        ease: 'easeInOut',
       },
     },
     hover: {
-      y: -5,
-      boxShadow: '0 15px 30px rgba(0, 0, 0, 0.1)',
+      scale: prefersReducedMotion ? 1 : 1.02,
       transition: { duration: 0.3 },
     },
   });
 
   // Icon animation
   const iconVariants = {
-    hidden: { opacity: 0, scale: 0.5 },
+    hidden: { opacity: 0, scale: 0.8 },
     visible: {
       opacity: 1,
       scale: 1,
       transition: {
         type: 'spring',
         stiffness: 200,
-        damping: 15,
+        damping: 20,
       },
     },
   };
@@ -94,30 +91,19 @@ const Services = () => {
       animate={isInView ? 'visible' : 'hidden'}
       variants={sectionVariants}
     >
-      {/* Background decorative elements */}
+      {/* Background decorative element */}
       {!prefersReducedMotion && (
         <motion.div className="absolute inset-0 pointer-events-none">
           <motion.div
-            className="absolute top-1/4 left-1/4 w-16 h-16 bg-purple-300 rounded-full opacity-20 blur-xl"
+            className="absolute top-1/3 left-1/2 w-20 h-20 bg-purple-300 rounded-full opacity-20 blur-xl"
             animate={{
-              y: [0, -40, 0],
-              x: [0, 30, 0],
+              scale: [1, 1.2, 1],
+              opacity: [0.2, 0.3, 0.2],
             }}
             transition={{
-              duration: 12,
+              duration: 5,
               repeat: Infinity,
               ease: 'easeInOut',
-            }}
-          />
-          <motion.div
-            className="absolute bottom-1/3 right-1/3 w-24 h-24 bg-purple-200 opacity-20 blur-xl"
-            animate={{
-              rotate: [0, 360],
-            }}
-            transition={{
-              duration: 20,
-              repeat: Infinity,
-              ease: 'linear',
             }}
           />
         </motion.div>
@@ -145,10 +131,11 @@ const Services = () => {
             <Link
               to={service.path}
               key={index}
-              onClick={scrollToTop} // Added to ensure page starts at top
+              onClick={scrollToTop}
+              aria-label={`Navigate to ${service.name} page`}
             >
               <motion.div
-                className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 border border-purple-200 hover:border-purple-400 transition-all"
+                className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 border border-purple-200 hover:border-purple-400 transition-colors"
                 variants={cardVariants(index)}
                 initial="hidden"
                 animate={isInView ? 'visible' : 'hidden'}
